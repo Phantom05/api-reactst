@@ -86,15 +86,16 @@ router.get('/movie/main/slide', async (req, res, next) => {
  */
 
 router.get('/movie/detail', async (req, res, next) => {
-  console.log(req.query, 'queryqueryqueryqueryquery');
-  console.log(get_query);
+  console.log(req.query, 'detaildetaildetaildetaildetail');
+
   let query_arr = _.reduce(req.query, (arr, val, key) => {
     arr.push(`${key}=${val}`)
     return arr;
   }, []);
   let get_query = query_arr.join('&');
+  console.log(get_query);
 
-  axios.get(`https://yts.tl/api/v2/movie_details.json?movie_id=${get_query}`)
+  axios.get(`https://yts.tl/api/v2/movie_details.json?${get_query}`)
     .then((response) => {
       console.log(response.data);
       res.json(response.data)
