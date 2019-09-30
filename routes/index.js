@@ -9,7 +9,9 @@ router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
+/**
+ * Movie Index
+ */
 router.get('/movie', async (req, res, next) => {
   console.log(req.query, 'queryqueryqueryqueryquery');
   let query_arr = _.reduce(req.query, (arr, val, key) => {
@@ -18,8 +20,81 @@ router.get('/movie', async (req, res, next) => {
   }, []);
   let get_query = query_arr.join('&');
 
-
   axios.get(`https://yts.tl/api/v2/list_movies.json?limit=20&${get_query}`)
+    .then((response) => {
+      console.log(response.data);
+      res.json(response.data)
+    })
+});
+
+router.get('/movie/main/slide', async (req, res, next) => {
+  console.log(req.query, 'queryqueryqueryqueryquery');
+  // let query_arr = _.reduce(req.query, (arr, val, key) => {
+  //   arr.push(`${key}=${val}`)
+  //   return arr;
+  // }, []);
+  // let get_query = query_arr.join('&');
+
+  // axios.get(`https://yts.tl/api/v2/list_movies.json?limit=20&${get_query}`)
+  //   .then((response) => {
+  //     console.log(response.data);
+  //     res.json(response.data)
+  //   })
+
+  let body = {}
+  const arr = [
+    {
+      id: 0,
+      style: {
+        backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url(http://images.adrise.tv/9FUmvLnHDwq15BAdwGS7MWlOpLY=/0x94:2037x850/1920x676/smart/img.adrise.tv/9086aff4-8fd0-4535-a361-1e212b6998bb.jpg)`,
+        backgroundPosition: `center`
+      },
+      link: `www.naver.com/1`
+    },
+    {
+      id: 1,
+      style: {
+        backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url("//images.adrise.tv/_tS5UL-kYfkHHk3JiLdx75_1vco=/0x203:3510x1506/1920x676/smart/img.adrise.tv/b13caf4a-2acc-43cb-9f52-8a9e5336c607.jpg")`,
+        backgroundPosition: `center`,
+      },
+      link: `www.naver.com/2`
+    },
+    {
+      id: 2,
+      style: {
+        backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url("//images02.adrise.tv/tvSrRPWTtjMApXtfkbTCesAOtdM=/0x620:2000x1361/1920x676/smart/img.adrise.tv/49182b8f-c258-4a6c-8252-20991fffda21.jpg")`,
+        backgroundPosition: `center`,
+      },
+      link: `www.naver.com/3`
+    },
+    {
+      id: 3,
+      style: {
+        backgroundImage: `linear-gradient(rgba(38, 38, 45, 0), rgb(38, 38, 45)), url("//images02.adrise.tv/paqvJjkY5MP1i88VaNNjTreP4NA=/1920x676/smart/img.adrise.tv/0a60ab2f-e19a-4b11-89ae-73132685b343.jpg")`,
+        backgroundPosition: `center`,
+      },
+      link: `www.naver.com/4`
+    }
+  ];
+  body.data = {};
+  body.data.movies = arr;
+  res.json(body);
+});
+
+/**
+ * Movie Detail
+ */
+
+router.get('/movie/detail', async (req, res, next) => {
+  console.log(req.query, 'queryqueryqueryqueryquery');
+  console.log(get_query);
+  let query_arr = _.reduce(req.query, (arr, val, key) => {
+    arr.push(`${key}=${val}`)
+    return arr;
+  }, []);
+  let get_query = query_arr.join('&');
+
+  axios.get(`https://yts.tl/api/v2/movie_details.json?movie_id=${get_query}`)
     .then((response) => {
       console.log(response.data);
       res.json(response.data)
