@@ -6,6 +6,15 @@ var url = require('url');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  console.log(req.params);
+  console.log(req.body);
+  res.render('index', { title: 'Express' });
+});
+router.post('/', function (req, res, next) {
+  console.log(req.params);
+  console.log(req.body);
+  console.log(req.files);
+  console.log(req.query);
   res.render('index', { title: 'Express' });
 });
 
@@ -102,6 +111,18 @@ router.get('/movie/detail', async (req, res, next) => {
     })
 });
 
+
+
+
+router.post('/file/upload', function (req, res, next) {
+  console.log(req.params);
+  console.log(req.body);
+  console.log(req.files);
+  console.log(req.query);
+  setTimeout(() => {
+    res.json({result:1});
+  }, 5000);
+});
 
 // router.get('/movie/week', function (req, res, next) {
 //   axios.get(`https://yts.tl/api/v2/list_movies.json?limit=10`)
