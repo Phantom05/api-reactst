@@ -1,4 +1,7 @@
+
+// var router = express.Router();
 var {axios, _, router} = require('./node_modules');
+
 var {api_path, queryString} = require('./common');
 var {wrap} = require('./middleware');
 
@@ -98,17 +101,14 @@ router.get('/list/main/slide',wrap(async (req, res, next) => {
 }) );
 
 
-/**
- * File Upload Test
- */
-router.post('/file/upload',wrap( function (req, res, next) {
-  console.log(req.params);
-  console.log(req.body);
-  console.log(req.files);
-  console.log(req.query);
+// /**
+//  * File Upload Test
+//  */
+router.post('/file/upload',wrap( async (req, res, next) => {
+  console.log('movie file upload');
   setTimeout(() => {
     res.json({ result: 1 });
-  }, 5000);
+  }, 3000);
 }));
 
 
