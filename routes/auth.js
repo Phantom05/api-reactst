@@ -10,7 +10,8 @@ var { wrap } = require('./middleware');
 router.post('/login', wrap(async (req, res, next) => {
   let query = queryString(req.query);
   console.log(query);
-
+  console.log(req.body);
+  
   let profile ={
     "type": 1,
     "code": 1,
@@ -24,6 +25,10 @@ router.post('/login', wrap(async (req, res, next) => {
     "jsonType": "login.res.json",
     "result": 1,
     "msg": "login success"
+}
+
+if(req.body.username !== 'test'){
+  profile.result = 2;
 }
 
   res.json(profile)
